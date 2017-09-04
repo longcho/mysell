@@ -46,7 +46,6 @@ public class WeCahrtController {
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
         String redirect =  returnUrl + "?openId=" + openId;
-        log.info("【微信授权】 ，redirect={}" ,redirect);
         return "redirect:" + redirect;
     }
 
