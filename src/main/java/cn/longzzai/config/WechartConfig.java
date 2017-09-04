@@ -22,6 +22,7 @@ public class WechartConfig {
     public WxMpService wxMpService(){
         WxMpService wxMpService = new WxMpServiceImpl();
         wxMpService.setWxMpConfigStorage(wxMpConfigStorage());
+        return wxMpService;
     }
     @Bean
     public WxMpConfigStorage wxMpConfigStorage(){

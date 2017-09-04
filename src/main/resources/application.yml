@@ -10,7 +10,7 @@ server:
   context-path: /sell
 wechat:
   mp:
-    appId:
-    secret:
+    appId: wx079d0593a06aa2e4
+    secret: c77a29e4c3098e8c66f4bd95c0b633a8
     token:
     aesKey:

@@ -1,11 +1,16 @@
 package cn.longzzai.controller;
 
+import cn.longzzai.enums.ResultEnum;
+import cn.longzzai.exception.SellException;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
+import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
+import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,51 +19,49 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URLEncoder;
+
 /**
  * @author longcho
  * 2017-09-03-10:01
  */
 @Controller
-@RequestMapping("/wechart")
+@RequestMapping("/wechat")
 @Slf4j
 public class WeCahrtController {
     @Autowired
     private WxMpService wxMpService;
 
-        //微信接口url认证
-    @ResponseBody
-    @RequestMapping("/aaaa")
-    public String urlAuth(@RequestParam("signature") String signature ,
-                          @RequestParam("timestamp") String timestamp ,
-                          @RequestParam("nonce") String nonce ,
-                          @RequestParam("echostr") String echostr ){
-        return null;
+    @GetMapping("/openId")
+    public String openId(@RequestParam("code") String code,
+                         @RequestParam("state") String returnUrl){
+        log.info("【微信授权】 ，code={} ,state={}", code ,returnUrl);
+        WxMpOAuth2AccessToken wxMpOAuth2AccessToken =new WxMpOAuth2AccessToken();
+        WxMpUser wxMpUser =new WxMpUser();
+        try {
+            wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(code);
+        } catch (WxErrorException e) {
+            log.error("【微信授权】，获取accesstoken失败  e={}" ,e);
+            throw new SellException(ResultEnum.WECHAT_TOKEN_ERROR.getCode() , e.getError().getErrorMsg());
+        }
+        String openId = wxMpOAuth2AccessToken.getOpenId();
+        String redirect =  returnUrl + "?openId=" + openId;
+        log.info("【微信授权】 ，redirect={}" ,redirect);
+        return "redirect:" + redirect;
     }
 
-    @GetMapping("/auth")
-    @ResponseBody
-    public String authGetCode(@RequestParam("code") String code){
-        log.info("【微信授权】 ，code={}", code);
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx079d0593a06aa2e4&secret=c77a29e4c3098e8c66f4bd95c0b633a8&code="+code+"&grant_type=authorization_code";
-        RestTemplate restTemplate = new RestTemplate();
-        String forObject = restTemplate.getForObject(url, String.class);
-        log.info("【微信授权】 ， response={}", forObject);
-        return forObject ;
-    }
 
-    @GetMapping("/auth/token")
-    public String authGetToken(@RequestParam("code") String code){
-        log.info("【微信授权】 ，code={}", code);
-        return code;
-    }
     //获取openid
     @GetMapping("/authorize")
-    @ResponseBody
-    public String authorize(@RequestParam("returnUrl") String returnUrl){
+    public String authorize(@RequestParam(value = "returnUrl" , required = true) String returnUrl){
         //配置参数
         //执行
-        String url = wxMpService.oauth2buildAuthorizationUrl(returnUrl, WxConsts.OAUTH2_SCOPE_USER_INFO, null);
-        log.info("【微信认证】获取openid ， url={}",url);
-        return url;
+        /**
+         * @param url :下一步跳转url
+         */
+        String url = "http://longzzai.natapp4.cc/sell/wechat/openId";
+        String redirectUrl = wxMpService.oauth2buildAuthorizationUrl(url, WxConsts.OAUTH2_SCOPE_BASE, returnUrl);
+        log.info("【微信认证】获取openid的code ， url={}",redirectUrl);
+        return "redirect:"+ redirectUrl;
     }
 }

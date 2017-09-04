@@ -18,7 +18,8 @@ public enum ResultEnum {
     PARAM_ERROR(8,"参数不正确"),
     CART_EMPTY(9 ,"购物车为空"),
     BUYER_OWNER_ERROR(10 , "该订单不属于当前用户"),
-    ORDER_NOT_EXIST(5 , "订单不存在"),
+    ORDER_NOT_EXIST(11 , "订单不存在"),
+    WECHAT_TOKEN_ERROR(12 ,"获取微信授权失败"),
     ;
     private int code;
     private String msg;
