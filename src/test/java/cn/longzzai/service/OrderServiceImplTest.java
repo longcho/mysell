@@ -4,7 +4,6 @@ import cn.longzzai.dataobject.OrderDetail;
 import cn.longzzai.dto.OrderDTO;
 import cn.longzzai.enums.OrderStatusEnum;
 import cn.longzzai.enums.PayStatusEnum;
-import cn.longzzai.enums.ResultEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,7 +69,7 @@ public class OrderServiceImplTest {
     public void finish() throws Exception {
         OrderDTO orderDTO = orderService.findOne("15041002451168673268");
         OrderDTO orderDTO1 = orderService.finish(orderDTO);
-        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode() , orderDTO1.getOrderStatus());
+       Assert.assertEquals(OrderStatusEnum.FINISHED.getCode() ,orderDTO1.getOrderStatus());
     }
 
     @Test

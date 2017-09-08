@@ -3,7 +3,9 @@ package cn.longzzai.dto;
 import cn.longzzai.dataobject.OrderDetail;
 import cn.longzzai.enums.OrderStatusEnum;
 import cn.longzzai.enums.PayStatusEnum;
+import cn.longzzai.utils.EnumUtil;
 import cn.longzzai.utils.serializer.Date2LongSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
@@ -57,4 +59,13 @@ public class OrderDTO {
     /**订单详情. */
     private List<OrderDetail> orderDetailList;
 
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum(){
+        return EnumUtil.getByCode(this.orderStatus ,OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum() {
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
+    }
 }

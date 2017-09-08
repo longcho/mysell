@@ -45,7 +45,8 @@ public class WeCahrtController {
             throw new SellException(ResultEnum.WECHAT_TOKEN_ERROR.getCode() , e.getError().getErrorMsg());
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
-        String redirect =  returnUrl + "?openId=" + openId;
+        String redirect =  returnUrl + "?openid=" + openId;
+        log.info("【微信授权】，redirect={}" , redirect);
         return "redirect:" + redirect;
     }
 

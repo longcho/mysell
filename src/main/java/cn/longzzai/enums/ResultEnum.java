@@ -20,6 +20,7 @@ public enum ResultEnum {
     BUYER_OWNER_ERROR(10 , "该订单不属于当前用户"),
     ORDER_NOT_EXIST(11 , "订单不存在"),
     WECHAT_TOKEN_ERROR(12 ,"获取微信授权失败"),
+    ORDER_CANCEL_SUCCESS(13,"订单取消成功"),
     ;
     private int code;
     private String msg;
