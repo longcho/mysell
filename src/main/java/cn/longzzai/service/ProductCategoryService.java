@@ -13,6 +13,6 @@ import java.util.List;
 public interface ProductCategoryService {
     public ProductCategory findOne(Integer productCategoryId);
     public List<ProductCategory> findAll();
-    public List<ProductCategory> findByCategoryTypeIn(List<Integer> categorytypeList);
+    public List<ProductCategory> findByCategoryIdIn(List<Integer> categoryIdList);
     public ProductCategory save(ProductCategory productCategory);
 }

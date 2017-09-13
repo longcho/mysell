@@ -33,6 +33,7 @@ public class BuyProductController {
     @Autowired
     private ProductInfoService productInfoService;
 
+
     @GetMapping("/list")
     public ResultVO list(){
         //查询所有上架商品
@@ -40,15 +41,15 @@ public class BuyProductController {
         //根据上架商品查询所有商品目录的标签collection
         List<Integer> collect = upProductList.stream().map(e -> e.getCategoryType()).collect(Collectors.toList());
         //上架商品的目录collection
-        List<ProductCategory> categoryTypeList = categoryService.findByCategoryTypeIn(collect);
+        List<ProductCategory> categoryList = categoryService.findByCategoryIdIn(collect);
         List<ProductVO> productVOList =new ArrayList<>();
-        for (ProductCategory productCategory : categoryTypeList) {
+        for (ProductCategory productCategory : categoryList) {
             ProductVO productVO =new ProductVO();
             productVO.setProductCategoryName(productCategory.getCategoryName());
-            productVO.setProductCategoryType(productCategory.getCategoryType());
+
             List<ProductInfoVO> productInfoVOList =new ArrayList<>();
             for (ProductInfo productInfo : upProductList) {
-                if(productInfo.getCategoryType().equals(productCategory.getCategoryType())){
+                if(productInfo.getCategoryType().equals(productCategory.getCategoryId())){
                     ProductInfoVO productInfoVO = new ProductInfoVO();
                     productInfoVO.setProductId(productInfo.getProductId());
                     productInfoVO.setProductName(productInfo.getProductName());

@@ -21,6 +21,10 @@ public enum ResultEnum {
     ORDER_NOT_EXIST(11 , "订单不存在"),
     WECHAT_TOKEN_ERROR(12 ,"获取微信授权失败"),
     ORDER_CANCEL_SUCCESS(13,"订单取消成功"),
+    ORDER_FINISH_SUCCESS(14 , "订单已完结"),
+    PRODUCT_STATUS_ERROR(15 , "商品状态错误"),
+    LOGOUT_SUCCESS(16 , "退出成功"),
+    LOGIN_SUCCESS(17 , "登录成功"),
     ;
     private int code;
     private String msg;

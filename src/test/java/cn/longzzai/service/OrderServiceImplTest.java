@@ -40,13 +40,16 @@ public class OrderServiceImplTest {
         orderDetailList.add(o1);
         orderDetailList.add(o2);
         orderDTO.setOrderDetailList(orderDetailList);
+        for (int i=1 ;i<100 ;i++) {
+            orderService.create(orderDTO);
+        }
         OrderDTO orderDTO1 = orderService.create(orderDTO);
         Assert.assertNotNull(orderDTO1);
     }
 
     @Test
     public void findOne() throws Exception {
-        OrderDTO one = orderService.findOne("15041002451168673268");
+        OrderDTO one = orderService.findOne("15048324842185509390");
         Assert.assertEquals("15041002451168673268" ,one.getOrderId());
     }
 

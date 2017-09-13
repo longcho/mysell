@@ -21,8 +21,8 @@ public class ProductCategoryTest {
     }
     @Test
     public void saveOne(){
-        ProductCategory productCategory = new ProductCategory("女生最爱",2);
-        repository.save(productCategory);
-        Assert.assertNotNull(productCategory);
+        //ProductCategory productCategory = new ProductCategory("女生最爱",2);
+        //repository.save(productCategory);
+        //Assert.assertNotNull(productCategory);
     }
 }

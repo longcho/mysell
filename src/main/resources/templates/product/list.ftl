@@ -12,62 +12,40 @@
         <div class="container-fruid" style="padding-left: 15px ; padding-right: 15px">
 
             <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                    data-target="#bs-example-navbar-collapse-1"><span
-                                    class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
-                                    class="icon-bar"></span><span class="icon-bar"></span></button>
-                            <a class="navbar-brand" href="#">订单号:</a>
-                        </div>
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                            <form class="navbar-form navbar-left" , role="search" ,method="get" ,
-                                  action="/sell/seller/order/detail">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="orderId"/>
-                                </div>
-                                <button type="submit" class="btn btn-default">查询</button>
-                            </form>
-
-                        </div>
-
-                    </nav>
-                </div>
                 <div class="col-md-12 column">
                     <table class="table table-hover table-bordered table-condensed">
                         <thead>
                         <tr>
-                            <th>订单id</th>
-                            <th>姓名</th>
-                            <th>手机号</th>
-                            <th>地址</th>
-                            <th>金额</th>
-                            <th>订单状态</th>
-                            <th>支付状态</th>
+                            <th>商品id</th>
+                            <th>名称</th>
+                            <th width="100">图片</th>
+                            <th>单价</th>
+                            <th>库存</th>
+                            <th>描述</th>
+                            <th>类目</th>
                             <th>创建时间</th>
+                            <th>修改时间</th>
                             <th colspan="2">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <#list orderDTOPage.content as orderDTO>
+                        <#list productInfoPage.content as productInfo>
                         <tr>
-                            <td> ${orderDTO.orderId}</td>
-                            <td> ${orderDTO.buyerName}</td>
-                            <td> ${orderDTO.buyerPhone}</td>
-                            <td> ${orderDTO.buyerAddress}</td>
-                            <td> ${orderDTO.orderAmount}</td>
-                            <td> ${orderDTO.getOrderStatusEnum().message}</td>
-                            <td> ${orderDTO.getPayStatusEnum().message}</td>
-                            <td> ${orderDTO.createTime}</td>
-                            <td> ${orderDTO.updateTime}</td>
-                            <td><a href="/sell/seller/order/detail?orderId=${orderDTO.orderId}">详情</a></td>
-                            <#if orderDTO.getOrderStatusEnum().message == "新订单" >
-                                <td><a href="/sell/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a></td>
+                            <td>${productInfo.productId}</td>
+                            <td>${productInfo.productName}</td>
+                            <td><img height="90" width="100" src="${productInfo.productIcon}" alt=""></td>
+                            <td>${productInfo.productPrice}</td>
+                            <td>${productInfo.productStock}</td>
+                            <td>${productInfo.productDescription}</td>
+                            <td>${productInfo.getCategoryName()}</td>
+                            <td>${productInfo.createTime}</td>
+                            <td>${productInfo.updateTime}</td>
+                            <td><a href="/sell/seller/product/index?productId=${productInfo.productId}">修改</a></td>
+                            <#if productInfo.getProductStatusEnum().message == "在架" >
+                                <td><a href="/sell/seller/product/off_sale?productId=${productInfo.productId}" style="color: chocolate">下架</a></td>
                             <#else >
-                                <td></td>
+                                <td><a href="/sell/seller/product/on_sale?productId=${productInfo.productId}">上架</a></td>
                             </#if>
                         </tr>
                         </#list>
@@ -117,7 +95,5 @@
         </div>
     </div>
 </div>
-
-
 </body>
 </html>

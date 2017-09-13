@@ -79,6 +79,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO findOne(String orderId) {
         OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
+        if(orderMaster == null){
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
+        }
         OrderDTO orderDTO = new OrderDTO();
         BeanUtils.copyProperties(orderMaster , orderDTO);
         orderDTO.setOrderDetailList(detailRepository.findByOrderId(orderId));

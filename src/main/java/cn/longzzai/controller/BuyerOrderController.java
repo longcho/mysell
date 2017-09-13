@@ -7,6 +7,7 @@ import cn.longzzai.exception.SellException;
 import cn.longzzai.form.OrderForm;
 import cn.longzzai.service.BuyerService;
 import cn.longzzai.service.OrderService;
+import cn.longzzai.service.WebSocket;
 import cn.longzzai.utils.ResultVOUtil;
 import cn.longzzai.utils.converter.OrderForm2OrderDTOConverter;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,8 @@ public class BuyerOrderController {
     private OrderService orderService;
     @Autowired
     private BuyerService buyerService;
+    @Autowired
+    private WebSocket webSocket;
 
 
     //创建订单
@@ -59,7 +62,7 @@ public class BuyerOrderController {
 
         Map<String, String> map = new HashMap<>();
         map.put("orderId", createResult.getOrderId());
-
+        webSocket.sendMsg("有一条新订单");
         return ResultVOUtil.success(map);
     }
     //查询订单列表

@@ -16,4 +16,5 @@ import org.springframework.stereotype.Component;
 public class WechartMPAccountConfig {
     private String appId;
     private String secret;
+    private String mpTemplateId;
 }

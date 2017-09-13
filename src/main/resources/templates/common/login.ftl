@@ -12,8 +12,8 @@
             <div class="alert alert-dismissable alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h4>
-                    成功!
-                </h4> <strong>${msg!""}</strong><a href="${reurl}" class="alert-link">1s后自动跳转</a>
+                    登录!
+                </h4> <strong></strong><a href="http://127.0.0.1:8080/sell/seller/user/login?openid=111" class="alert-link">跳转</a>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
 </body>
 
 <script>
-    setTimeout('location.href="${reurl}"', 1000);
+
 </script>
 
 </html>
