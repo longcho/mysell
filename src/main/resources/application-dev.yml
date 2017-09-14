@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.113:3306/wechartshop?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+  jpa:
+    show-sql: true
+  redis:
+    host: 192.168.1.113
+    port: 6379
+server:
+  context-path: /sell
+wechat:
+  mp:
+    appId: wx079d0593a06aa2e4
+    secret: c77a29e4c3098e8c66f4bd95c0b633a8
+    mpTemplateId: P3y0sYej1HQcr3UGA5_zG3OuBGNadTd3p7eWidzqL-0
+    token:
+    aesKey:
+projectUrl:
+   wechatMpAuthorize:
+   wechatOpenAuthorize:
+   sell: localhost:8080

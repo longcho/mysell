@@ -2,6 +2,7 @@ package cn.longzzai.VO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -10,7 +11,9 @@ import java.math.BigDecimal;
  * @author longcho
  * 2017-08-26-10:48
  */
-public class ProductInfoVO {
+public class ProductInfoVO implements Serializable{
+
+    private static final long serialVersionUID = 543982891677553883L;
     //商品id
     @JsonProperty("id")
     private String productId;

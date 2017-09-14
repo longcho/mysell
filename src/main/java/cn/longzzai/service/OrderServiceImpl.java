@@ -16,6 +16,7 @@ import cn.longzzai.utils.converter.OrderMaster2OrderDTOConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -97,6 +98,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Cacheable(cacheNames = "sellOrder" , key ="#pageable.pageNumber")
     public Page<OrderDTO> findList(Pageable pageable) {
         Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
         List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.toOrderDTO(orderMasterPage.getContent());

@@ -12,6 +12,8 @@ import cn.longzzai.utils.ResultVOUtil;
 import cn.longzzai.utils.converter.OrderForm2OrderDTOConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.util.CollectionUtils;
@@ -44,6 +46,7 @@ public class BuyerOrderController {
 
     //创建订单
     @PostMapping("/create")
+
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm,
                                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -67,6 +70,7 @@ public class BuyerOrderController {
     }
     //查询订单列表
     @GetMapping("/list")
+
     public ResultVO<List<OrderDTO>> list(@RequestParam("openid") String openid ,
                                         @RequestParam(value = "page", defaultValue = "0") int page,
                                         @RequestParam(value = "size" ,defaultValue = "10") int size){

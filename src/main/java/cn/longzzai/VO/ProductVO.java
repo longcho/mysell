@@ -2,6 +2,7 @@ package cn.longzzai.VO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -11,7 +12,9 @@ import java.util.List;
  * @author longcho
  * 2017-08-26-10:42
  */
-public class ProductVO {
+public class ProductVO implements Serializable{
+
+    private static final long serialVersionUID = -2104023587664975549L;
     //商品类目名称
     @JsonProperty("name")
     private String productCategoryName;

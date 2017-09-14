@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,9 @@ import java.util.List;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OrderDTO {
+public class OrderDTO implements Serializable{
+
+    private static final long serialVersionUID = 1958316279662547877L;
     /** 订单id. */
 
     private String orderId;

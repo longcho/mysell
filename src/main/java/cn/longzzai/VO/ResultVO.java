@@ -1,12 +1,16 @@
 package cn.longzzai.VO;
 
+import java.io.Serializable;
+
 /**
  * http请求返回的最外层对象
  *
  * @author longcho
  * 2017-08-26-10:39
  */
-public class ResultVO <T> {
+public class ResultVO <T> implements Serializable{
+
+    private static final long serialVersionUID = 6050800680212679517L;
     /** 错误码. */
     private Integer code;
 

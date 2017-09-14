@@ -9,6 +9,8 @@ import cn.longzzai.service.SellerTemplateMessageService;
 import cn.longzzai.service.WebSocket;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,7 @@ public class SellerOrderController {
 
 
     @GetMapping("/list")
+
     public ModelAndView list(@RequestParam(value = "page" , defaultValue = "1") int page ,
                              @RequestParam(value = "size" , defaultValue = "10") int size , Map<String ,Object> map){
         PageRequest request = new PageRequest(page - 1 ,size);
@@ -50,6 +53,7 @@ public class SellerOrderController {
     }
 
     @GetMapping("/cancel")
+    @CacheEvict(cacheNames = "sellOrder" , key ="111111")
     public ModelAndView cancel(@RequestParam("orderId") String orderId ,  Map<String ,Object> map){
         try {
             OrderDTO orderDTO = orderService.findOne(orderId);
